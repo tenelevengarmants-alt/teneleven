@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Ten Eleven Garments | Ultra-Premium Coat Manufacturers</title>
+  <!-- Google Fonts + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    html, body{
+      overflow-x: hidden;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #0a0a0a;
+      font-family: 'Inter', sans-serif;
+      color: #ddd;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .logo-text, .nav-links a, .hero-title, .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    /* GOLD THEME VARIABLES */
+    :root {
+      --gold: #D4AF37;
+      --gold-light: #F5E18C;
+      --gold-dark: #AA7C2C;
+      --charcoal: #111111;
+      --glass-bg: rgba(20, 20, 20, 0.65);
+      --glass-border: rgba(212, 175, 55, 0.25);
+      --transition-smooth: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    /* custom scroll */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1a1a1a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--gold);
+      border-radius: 10px;
+    }
+
+    /* preloader */
+    .preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.6s ease;
+    }
+    .preloader.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .loader-gold {
+      width: 60px;
+      height: 60px;
+      border: 3px solid rgba(212, 175, 55, 0.2);
+      border-top: 3px solid var(--gold);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); }}
+
+    /* sticky navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(14px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      transition: var(--transition-smooth);
+    }
+    .nav-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      flex-wrap: wrap;
+    }
+    .logo img {
+      height: 52px;
+      width: auto;
+      filter: drop-shadow(0 0 5px rgba(212,175,55,0.4));
+      transition: transform 0.2s;
+    }
+    .logo img:hover { transform: scale(1.02);}
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      transition: all 0.3s;
+    }
+    .nav-links li a {
+      text-decoration: none;
+      color: #ececec;
+      font-weight: 500;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      transition: 0.2s;
+      position: relative;
+      font-family: 'Inter', sans-serif;
+    }
+    .nav-links li a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      bottom: -6px;
+      left: 0;
+      background: var(--gold);
+      transition: 0.3s;
+    }
+    .nav-links li a:hover { color: var(--gold);}
+    .nav-links li a:hover::after { width: 100%;}
+    .menu-icon {
+      display: none;
+      font-size: 1.8rem;
+      color: var(--gold);
+      cursor: pointer;
+    }
+
+    @media (max-width: 992px) {
+      .nav-links {
+        position: fixed;
+        top: 78px;
+        left: -100%;
+        flex-direction: column;
+        background: rgba(0,0,0,0.96);
+        backdrop-filter: blur(20px);
+        width: 70%;
+        height: 100vh;
+        padding: 2rem;
+        gap: 2rem;
+        transition: 0.3s;
+        border-right: 1px solid var(--gold);
+        z-index: 999;
+      }
+      .nav-links.active {
+        left: 0;
+      }
+      .menu-icon {
+        display: block;
+      }
+    }
+
+    /* fixed buttons */
+    .fixed-buttons {
+      position: fixed;
+      bottom: 30px;
+      right: 25px;
+      z-index: 1100;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .btn-wa, .btn-call {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #25D366;
+      color: white;
+      font-size: 28px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+    .btn-call { background: #1E6FDF; }
+    .btn-wa:hover, .btn-call:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 15px rgba(212,175,55,0.5);
+    }
+
+    /* section style */
+    section {
+      padding: 90px 5%;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+    .section-title {
+      font-size: 3rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: var(--gold);
+      letter-spacing: 1px;
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: var(--gold);
+      margin: 10px auto 0;
+    }
+
+    /* hero slider */
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .slider {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
+    }
+    .slide.active {
+      opacity: 1;
+      z-index: 1;
+    }
+    .overlay-dark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.75) 100%);
+      z-index: 2;
+    }
+    .hero-content {
+      position: absolute;
+      z-index: 3;
+      bottom: 20%;
+      left: 8%;
+      max-width: 650px;
+      text-shadow: 0 2px 15px rgba(0,0,0,0.6);
+      animation: fadeUp 0.8s ease;
+    }
+    .hero-content h1 {
+      font-size: 4.2rem;
+      font-weight: 700;
+      color: white;
+      line-height: 1.2;
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+      margin: 1rem 0 1.8rem;
+      color: #f0f0f0;
+    }
+    .btn-group {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .btn-gold {
+      background: transparent;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      padding: 12px 32px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      backdrop-filter: blur(4px);
+    }
+    .btn-gold:hover {
+      background: var(--gold);
+      color: black;
+      box-shadow: 0 0 15px var(--gold);
+    }
+    .btn-black {
+      background: var(--gold);
+      border: none;
+      color: black;
+      padding: 12px 32px;
+      font-weight: 600;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+    .btn-black:hover {
+      background: #f5cf6b;
+      transform: translateY(-3px);
+    }
+
+    /* about + cards */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .about-img img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 25px 40px -12px rgba(0,0,0,0.5);
+      border: 1px solid rgba(212,175,55,0.4);
+    }
+    .about-text h3 {
+      font-size: 2rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .about-text p {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    /* product grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .product-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      border: 1px solid var(--glass-border);
+      overflow: hidden;
+      transition: var(--transition-smooth);
+      text-align: center;
+      padding-bottom: 1.5rem;
+    }
+    .product-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      border-color: var(--gold);
+      box-shadow: 0 25px 35px -15px rgba(212,175,55,0.2);
+    }
+    .product-card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+    .product-card:hover img { transform: scale(1.05);}
+    .product-card h3 {
+      font-size: 1.7rem;
+      margin: 1rem 0 0.5rem;
+      color: var(--gold);
+    }
+    .product-card p {
+      padding: 0 1rem;
+      font-size: 0.9rem;
+    }
+
+    /* why choose us */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .feature-item {
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(8px);
+      padding: 2rem;
+      border-radius: 24px;
+      text-align: center;
+      border: 1px solid rgba(212,175,55,0.2);
+      transition: 0.3s;
+    }
+    .feature-item i {
+      font-size: 2.8rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      text-shadow: 0 0 5px gold;
+    }
+    .feature-item h4 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* clients */
+    .clients-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2.5rem;
+      margin-top: 2rem;
+    }
+    .client-card {
+      background: rgba(20,20,20,0.7);
+      backdrop-filter: blur(5px);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      border-left: 3px solid var(--gold);
+      font-weight: 600;
+      font-size: 1.2rem;
+      transition: 0.2s;
+    }
+    .client-card:hover {
+      background: var(--gold);
+      color: black;
+      transform: translateY(-5px);
+    }
+
+    /* testimonial carousel */
+    .testimonial-slider {
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .testimonial-track {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .testimonial-card {
+      flex: 0 0 100%;
+      padding: 2rem;
+      background: rgba(20,20,20,0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 38px;
+      margin: 0 1rem;
+      text-align: center;
+      border: 1px solid rgba(212,175,55,0.4);
+    }
+    .testimonial-card img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1rem;
+      border: 2px solid var(--gold);
+    }
+    .testimonial-card p {
+      font-style: italic;
+    }
+    .slider-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .slider-controls button {
+      background: none;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 8px 20px;
+      cursor: pointer;
+      border-radius: 40px;
+      transition: 0.2s;
+    }
+
+    /* wholesaler section + counters */
+    .wholesaler-highlight {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1408 100%);
+      border-radius: 60px;
+      padding: 4rem 2rem;
+      text-align: center;
+      border: 1px solid var(--gold);
+      margin-top: 2rem;
+    }
+    .counter-grid {
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .counter-item h3 {
+      font-size: 3rem;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    /* FAQ accordion */
+    .faq-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .faq-item {
+      background: rgba(0,0,0,0.5);
+      margin-bottom: 1.2rem;
+      border-radius: 18px;
+      border: 1px solid rgba(212,175,55,0.3);
+    }
+    .faq-question {
+      background: transparent;
+      padding: 1.2rem 1.8rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--gold);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+      padding: 0 1.8rem;
+    }
+    .faq-item.active .faq-answer {
+      max-height: 200px;
+      padding-bottom: 1.2rem;
+    }
+
+    /* book section */
+    .book-cta {
+      text-align: center;
+      background: radial-gradient(ellipse at 30% 40%, rgba(212,175,55,0.1), transparent);
+      padding: 3rem;
+      border-radius: 48px;
+    }
+    .book-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    /* contact */
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .contact-details {
+      flex: 1;
+    }
+    .contact-details p {
+      margin: 1rem 0;
+      font-size: 1.1rem;
+    }
+    .contact-details i {
+      color: var(--gold);
+      width: 32px;
+    }
+    .map {
+      flex: 1;
+      min-height: 280px;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    /* footer */
+    footer {
+      background: #050505;
+      border-top: 1px solid var(--gold);
+      padding: 3rem 5% 1rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap: 2rem;
+    }
+    .footer-col h4 {
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .footer-col a, .footer-col p {
+      color: #ccc;
+      text-decoration: none;
+      display: block;
+      margin: 8px 0;
+      transition: 0.2s;
+    }
+    .footer-col a:hover { color: var(--gold); padding-left: 5px; }
+    .social-icons a {
+      display: inline-block;
+      margin-right: 15px;
+      font-size: 1.4rem;
+      color: #aaa;
+    }
+    .social-icons a:hover { color: var(--gold);}
+    .copyright { text-align: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #222;}
+
+    /* scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: all 0.8s ease;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .hero-content h1 { font-size: 2.4rem; }
+      .section-title { font-size: 2.2rem; }
+      .about-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="preloader" id="preloader"><div class="loader-gold"></div></div>
+
+<!-- Fixed buttons -->
+<div class="fixed-buttons">
+  <a href="https://wa.me/923224890684" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+  <a href="tel:03224890684" class="btn-call"><i class="fas fa-phone-alt"></i></a>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <div class="logo"><img id="companyLogo" src="logo.webp" alt="Ten Eleven Garments Logo"></div>
+    <div class="menu-icon" id="menuIcon"><i class="fas fa-bars"></i></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#whyus">Why Choose Us</a></li>
+      <li><a href="#clients">Clients</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero Slider -->
+<section id="home" class="hero">
+  <div class="slider" id="heroSlider">
+    <div class="slide active" style="background-image: url('caro2.webp');"></div>
+    <div class="slide" style="background-image: url('caro1.webp');"></div>
+    <div class="slide" style="background-image: url('caro3.webp');"></div>
+    <div class="overlay-dark"></div>
+  </div>
+  <div class="hero-content">
+    <h1>Premium Quality Garments <br> Manufacturer & Wholesaler</h1>
+    <p>Luxury Pent Coats, Long Coats & Puffer Jackets Crafted With Excellence</p>
+    <div class="btn-group">
+      <a href="#products" class="btn-gold">Explore Collection</a>
+      <a href="#contact" class="btn-black">Contact Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- About Us -->
+<section id="about" class="reveal">
+  <div class="about-grid">
+    <div class="about-img"><img src="logo.webp" alt="Premium manufacturing"></div>
+    <div class="about-text"><h3>Ten Eleven Garments</h3><p>With over a decade of excellence, Ten Eleven Garments is a premium manufacturer and wholesaler of designer coats and jackets. Our state-of-the-art facility blends traditional craftsmanship with modern innovation, supplying luxury brands worldwide. We specialize in pent coats, long coats, casual coats, and insulated puffer jackets — each piece reflects unparalleled elegance and durability.</p><p>Trusted by elite retailers, we offer bespoke wholesale solutions with global shipping, ensuring every garment meets international standards.</p></div>
+  </div>
+</section>
+
+<!-- Products -->
+<section id="products" class="reveal">
+  <h2 class="section-title">Artisan Collection</h2>
+  <div class="products-grid" id="productsContainer">
+    <div class="product-card"><img src="pantcoat.webp" alt="Pent Coat"><h3>Pent Coats</h3><p>Sharp tailored elegance, structured silhouettes with premium wool blends.</p></div>
+    <div class="product-card"><img src="longcoat.webp" alt="Long Coat"><h3>Long Coats</h3><p>Floor-grazing luxury, perfect for high-fashion statements.</p></div>
+    <div class="product-card"><img src="casualcoat.webp" alt="Casual Coat"><h3>Casual Coats</h3><p>Relaxed yet refined, lightweight comfort and modern cut.</p></div>
+    <div class="product-card"><img src="pufferjacket.webp" alt="Puffer Jacket"><h3>Puffer Jackets</h3><p>Insulated warmth meets luxury nylon, ultimate cold-weather style.</p></div>
+  </div>
+</section>
+
+<!-- Why Choose Us -->
+<section id="whyus" class="reveal">
+  <h2 class="section-title">Why Choose Us</h2>
+  <div class="features-grid">
+    <div class="feature-item"><i class="fas fa-gem"></i><h4>Premium Quality Materials</h4><p>Italian fabrics & meticulous tailoring</p></div>
+    <div class="feature-item"><i class="fas fa-industry"></i><h4>Modern Manufacturing</h4><p>Tech-driven precision with ethical production</p></div>
+    <div class="feature-item"><i class="fas fa-tags"></i><h4>Wholesale Pricing</h4><p>Factory direct, no middlemen</p></div>
+    <div class="feature-item"><i class="fas fa-globe-asia"></i><h4>Worldwide Supply</h4><p>Fast logistics to 40+ countries</p></div>
+    <div class="feature-item"><i class="fas fa-shipping-fast"></i><h4>Fast Delivery</h4><p>Express options for B2B partners</p></div>
+    <div class="feature-item"><i class="fas fa-user-tie"></i><h4>Trusted Garment Experts</h4><p>Decades of fashion manufacturing excellence</p></div>
+  </div>
+</section>
+
+<!-- Clients -->
+<section id="clients" class="reveal">
+  <h2 class="section-title">Trusted By Clients Worldwide</h2>
+  <div class="clients-grid">
+    <div class="client-card">Luxury Atelier Paris</div>
+    <div class="client-card">Harrods Wholesale</div>
+    <div class="client-card">Elite Fashion Group</div>
+    <div class="client-card">La Moda Italia</div>
+    <div class="client-card">Nordic Coat Co.</div>
+    <div class="client-card">Dubai Style Hub</div>
+  </div>
+</section>
+
+<!-- Testimonials Carousel -->
+<section id="testimonials" class="reveal">
+  <h2 class="section-title">Client Voices</h2>
+  <div class="testimonial-slider">
+    <div class="testimonial-track" id="testimonialTrack">
+      <div class="testimonial-card"><img src="https://randomuser.me/api/portraits/women/68.jpg" alt="client"><p>"Exceptional quality and on-time delivery. Ten Eleven's puffer jackets became our bestseller!"</p><h4>- Sarah J.</h4></div>
+      <div class="testimonial-card"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="client"><p>"Their craftsmanship in long coats is unmatched. A true luxury wholesale partner."</p><h4>- Michael R.</h4></div>
+      <div class="testimonial-card"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="client"><p>"Reliable, premium, and stunning designs. Highly recommend Ten Eleven for global buyers."</p><h4>- Elena K.</h4></div>
+    </div>
+    <div class="slider-controls"><button id="prevTesti"><i class="fas fa-chevron-left"></i> Prev</button><button id="nextTesti">Next <i class="fas fa-chevron-right"></i></button></div>
+  </div>
+</section>
+
+<!-- Best Wholesaler Section + Counters -->
+<section id="wholesaler" class="reveal">
+  <div class="wholesaler-highlight">
+    <h2 style="color:var(--gold); font-size:2.5rem;">Best Garments Wholesaler in Pakistan & Worldwide</h2>
+    <div class="counter-grid">
+      <div class="counter-item"><h3 id="counter1">0</h3><p>Years of Excellence</p></div>
+      <div class="counter-item"><h3 id="counter2">0</h3><p>Global Clients</p></div>
+      <div class="counter-item"><h3 id="counter3">0</h3><p>Products Shipped</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Accordion -->
+<section id="faq" class="reveal">
+  <h2 class="section-title">Frequently Asked</h2>
+  <div class="faq-container">
+    <div class="faq-item"><div class="faq-question">What is your MOQ for wholesale? <i class="fas fa-plus"></i></div><div class="faq-answer">Our MOQ starts from 50 pieces per style, but we offer flexible sampling for premium clients.</div></div>
+    <div class="faq-item"><div class="faq-question">Do you ship worldwide? <i class="fas fa-plus"></i></div><div class="faq-answer">Absolutely! We ship to Europe, USA, Middle East, Asia & beyond with express logistics.</div></div>
+    <div class="faq-item"><div class="faq-question">Can I get custom sizing and private label? <i class="fas fa-plus"></i></div><div class="faq-answer">Yes, we offer full custom manufacturing, private labeling, and size grading.</div></div>
+  </div>
+</section>
+
+<!-- Book Your Products Section -->
+<section id="book" class="reveal">
+  <div class="book-cta">
+    <h2 style="color:var(--gold);">Secure Your Collection</h2>
+    <p>Direct wholesale orders — speak with our luxury experts now.</p>
+    <div class="book-buttons">
+      <a href="https://wa.me/923224890684" class="btn-gold" style="background: #25D366; border:none; color:white;">WhatsApp Order Now</a>
+      <a href="tel:03224890684" class="btn-black">Call Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Us + Map -->
+<section id="contact" class="reveal">
+  <h2 class="section-title">Connect With Us</h2>
+  <div class="contact-info">
+    <div class="contact-details" id="contactContainer">
+      <p><i class="fas fa-phone-alt"></i> <strong>Phone:</strong> <a href="tel:03224890684" style="color:var(--gold);">03224890684</a></p>
+      <p><i class="fas fa-envelope"></i> <strong>Email:</strong> <a href="mailto:tenelevengarments@gmail.com" style="color:var(--gold);">tenelevengarments@gmail.com</a></p>
+      <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> Pakistan Mint Stop Orange Line Train, Shafi Brother Plaza, GT Road, Lahore</p>
+    </div>
+    <div class="map">
+      <iframe width="100%" height="100%" style="border:0; border-radius: 20px;" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Shafi+Brother+Plaza+GT+Road+Lahore+Pakistan"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col"><h4>Ten Eleven Garments</h4><p>Premium coat manufacturer & global wholesaler. Luxury redefined.</p></div>
+    <div class="footer-col"><h4>Quick Links</h4><a href="#home">Home</a><a href="#about">About</a><a href="#products">Collection</a><a href="#contact">Contact</a></div>
+    <div class="footer-col"><h4>Contact</h4><p><i class="fas fa-phone"></i> 03224890684</p><p><i class="fas fa-envelope"></i> tenelevengarments@gmail.com</p></div>
+    <div class="footer-col"><h4>Follow Luxury</h4><div class="social-icons"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a></div></div>
+  </div>
+  <div class="copyright">© 2025 Ten Eleven Garments — Ultra Premium Craftsmanship</div>
+</footer>
+
+<script>
+  // Preloader
+  window.addEventListener('load', () => {
+    document.getElementById('preloader').classList.add('fade-out');
+    setTimeout(() => document.getElementById('preloader').style.display = 'none', 800);
+  });
+
+  // Mobile Menu
+  const menuIcon = document.getElementById('menuIcon');
+  const navLinks = document.getElementById('navLinks');
+  menuIcon.addEventListener('click', () => navLinks.classList.toggle('active'));
+  document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
+
+  // Hero Slider auto
+  let slides = document.querySelectorAll('.slide');
+  let current = 0;
+  function nextSlide() { slides[current].classList.remove('active'); current = (current+1)%slides.length; slides[current].classList.add('active'); }
+  setInterval(nextSlide, 5200);
+
+  // Testimonial Carousel
+  const track = document.getElementById('testimonialTrack');
+  const testimonials = document.querySelectorAll('.testimonial-card');
+  let testiIndex = 0;
+  function updateTesti() { track.style.transform = `translateX(-${testiIndex * 100}%)`; }
+  document.getElementById('prevTesti').addEventListener('click',()=>{ testiIndex = (testiIndex-1+testimonials.length)%testimonials.length; updateTesti(); });
+  document.getElementById('nextTesti').addEventListener('click',()=>{ testiIndex = (testiIndex+1)%testimonials.length; updateTesti(); });
+
+  // FAQ Accordion
+  document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('click', () => {
+      const parent = q.parentElement;
+      parent.classList.toggle('active');
+      const icon = q.querySelector('i');
+      if(parent.classList.contains('active')) icon.classList.replace('fa-plus','fa-minus');
+      else icon.classList.replace('fa-minus','fa-plus');
+    });
+  });
+
+  // Counters + scroll reveal
+  const counters = [ {el: document.getElementById('counter1'), target: 18, current:0, suffix:''}, {el: document.getElementById('counter2'), target: 420, current:0}, {el: document.getElementById('counter3'), target: 1250, current:0} ];
+  let counted = false;
+  const revealElements = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.classList.add('active');
+        if(entry.target.id === 'wholesaler' && !counted) {
+          counted = true;
+          counters.forEach(c => { let update = setInterval(() => { if(c.current < c.target) { c.current += Math.ceil(c.target/50); if(c.current > c.target) c.current=c.target; c.el.innerText = c.current+(c.suffix||''); } else clearInterval(update); }, 20); });
+        }
+      }
+    });
+  }, { threshold: 0.2 });
+  revealElements.forEach(el => observer.observe(el));
+  // manual reveal check also for about, etc...
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Smooth scroll all anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => anchor.addEventListener('click', function(e) {
+    const targetId = this.getAttribute('href').substring(1);
+    const target = document.getElementById(targetId);
+    if(target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  }));
+</script>
+
+<script>
+
+async function loadProducts() {
+  const response = await fetch('./data/products.json');
+  const data = await response.json();
+
+  const container = document.getElementById('productsContainer');
+
+  container.innerHTML = data.products.map(product => `
+    <div class="product-card">
+      <img src="${product.image}" alt="${product.title}">
+      <h3>${product.title}</h3>
+      <p>${product.description}</p>
+    </div>
+  `).join('');
+}
+
+async function loadContact() {
+  const response = await fetch('./data/contact.json');
+  const data = await response.json();
+
+  const container = document.getElementById('contactContainer');
+
+  container.innerHTML = `
+    <p>
+      <i class="fas fa-phone-alt"></i>
+      <strong>Phone:</strong>
+      <a href="tel:${data.phone}" style="color:var(--gold);">
+        ${data.phone}
+      </a>
+    </p>
+
+    <p>
+      <i class="fas fa-envelope"></i>
+      <strong>Email:</strong>
+      <a href="mailto:${data.email}" style="color:var(--gold);">
+        ${data.email}
+      </a>
+    </p>
+
+    <p>
+      <i class="fas fa-map-marker-alt"></i>
+      <strong>Address:</strong>
+      ${data.address}
+    </p>
+  `;
+}
+
+loadProducts();
+loadContact();
+
+</script>
+</body>
+</html>
