@@ -1,0 +1,9 @@
+{
+  "products": [
+    {
+      "title": "Pent Coats",
+      "description": "Sharp tailored elegance",
+      "image": "https://res.cloudinary.com/demo/image/upload/sample.jpg"
+    }
+  ]
+}
