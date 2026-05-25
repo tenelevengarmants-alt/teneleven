@@ -1,0 +1,41 @@
+backend:
+  name: github
+  repo: YOUR_USERNAME/ten-eleven-garments
+  branch: main
+
+media_library:
+  name: cloudinary
+  config:
+    cloud_name: YOUR_CLOUDINARY_NAME
+    api_key: YOUR_API_KEY
+
+media_folder: "uploads"
+public_folder: "https://res.cloudinary.com/YOUR_CLOUDINARY_NAME/image/upload"
+
+collections:
+
+  - name: "products"
+    label: "Artisan Collection"
+    file: "data/products.json"
+    format: "json"
+
+    fields:
+      - label: "Products"
+        name: "products"
+        widget: "list"
+
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "Image", name: "image", widget: "image" }
+
+  - name: "contact"
+    label: "Connect With Us"
+    file: "data/contact.json"
+    format: "json"
+
+    fields:
+      - { label: "Phone", name: "phone", widget: "string" }
+      - { label: "Email", name: "email", widget: "string" }
+      - { label: "Address", name: "address", widget: "text" }
+      - { label: "WhatsApp", name: "whatsapp", widget: "string" }
